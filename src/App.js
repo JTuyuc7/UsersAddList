@@ -2,13 +2,9 @@ import React, {useState} from 'react';
 import UserForm from './components/UserForm';
 import ListUsers from './components/ListUsers';
 
-const initiaState = [
-  { id: 1, name: 'James Tuyuc', age: 23 }
-]
-
 const App = () => {
 
-  const [ users, setUsers ] = useState( initiaState );
+  const [ users, setUsers ] = useState([]);
 
   // Funcion para recibir los nuevos usuarios
   const addNewUserData = ( data ) => {
@@ -23,7 +19,7 @@ const App = () => {
         />
 
         <div>
-          { users.length === 0 ? ( <p>No users yet, add a new one</p> ) :
+          { users.length === 0 ? ( <p style={{ textAlign: 'center', color: 'white', fontWeight: 'bold'}}>No users yet, add a new one</p> ) :
             (users?.map( (user) => {
               return (
                 <ListUsers

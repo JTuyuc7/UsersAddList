@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Card from './UI/Card';
 import CustomButton from './UI/CustomButton';
 import styles from './UserForm.module.css';
+import ErrorModal from './UI/ErrorModal';
 
 const UserForm = ({addNewUserData}) => {
 
@@ -11,7 +12,7 @@ const UserForm = ({addNewUserData}) => {
         age: 0
     });
     //State to validate any errors
-    const [ error, setError ] = useState(false)
+    const [ error, setError ] = useState()
 
     const { name, age } = data;
 
@@ -25,15 +26,13 @@ const UserForm = ({addNewUserData}) => {
     const addNewUser = (e) => {
         e.preventDefault()
 
-        if( name.trim() === ''){
+        if( name.trim() === '' || age <= 0 ){
             console.log('Name can not be empty')
-            setError(true)
-            return
-        }
+            setError({
+                title: 'Opps somenthing went wrong',
+                content: 'Please enter a valid name and age'
 
-        if( age <= 0 ){
-            console.log('Age can not be 0')
-            setError(true)
+            })
             return
         }
 
@@ -51,8 +50,16 @@ const UserForm = ({addNewUserData}) => {
         })
     }
 
+    //Reset the error
+    const errorHandler = () => {
+        setError(null)
+    }
+
     return (  
         <>
+
+            { error && (<ErrorModal title={ error.title } content={ error.content } errorHandler={errorHandler} />) }
+
             <Card className={ styles.input }>
                 <form
                     onSubmit={ addNewUser }
