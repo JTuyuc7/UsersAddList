@@ -57,9 +57,7 @@ const UserForm = ({addNewUserData}) => {
 
     return (  
         <>
-
             { error && (<ErrorModal title={ error.title } content={ error.content } errorHandler={errorHandler} />) }
-
             <Card className={ styles.input }>
                 <form
                     onSubmit={ addNewUser }
